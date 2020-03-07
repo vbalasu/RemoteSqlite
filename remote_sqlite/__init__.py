@@ -46,3 +46,6 @@ class RemoteSqlite:
             values = tuple(record.values())
             cur.execute(insert_statement, values)
         self.con.commit()
+    def generate_create_table(self, tbl_name, records):
+        columns = ', '.join([f'"{k}" TEXT' for k in records[0].keys()])
+        return f'CREATE TABLE "{tbl_name}" ({columns})'

@@ -12,7 +12,8 @@
 
 <div class="text_cell_render border-box-sizing rendered_html">
 
-# RemoteSqlite
+RemoteSqlite[¶](#RemoteSqlite){.anchor-link} {#RemoteSqlite}
+============================================
 
 </div>
 
@@ -280,7 +281,7 @@ Out\[5\]:
 
 <div class="output_text output_subarea output_execute_result">
 
-    <sqlite3.Cursor at 0x10c31c9d0>
+    <sqlite3.Cursor at 0x10535bab0>
 
 </div>
 
@@ -364,7 +365,7 @@ Out\[7\]:
 
 <div class="output_text output_subarea output_execute_result">
 
-    <sqlite3.Cursor at 0x10c364260>
+    <sqlite3.Cursor at 0x1053a43b0>
 
 </div>
 
@@ -444,8 +445,8 @@ Out\[9\]:
 
 <div class="output_text output_subarea output_execute_result">
 
-    [{'id': 1, 'name': 'John', 't': datetime.datetime(2020, 3, 6, 22, 41, 4)},
-     {'id': 2, 'name': 'Matt', 't': datetime.datetime(2020, 3, 6, 22, 41, 4)}]
+    [{'id': 1, 'name': 'John', 't': datetime.datetime(2020, 3, 7, 22, 12, 45)},
+     {'id': 2, 'name': 'Matt', 't': datetime.datetime(2020, 3, 7, 22, 12, 45)}]
 
 </div>
 
@@ -497,7 +498,197 @@ Out\[10\]:
 
 <div class="output_text output_subarea output_execute_result">
 
-    <sqlite3.Cursor at 0x10c3642d0>
+    <sqlite3.Cursor at 0x1053a42d0>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+
+In \[11\]:
+
+</div>
+
+<div class="inner_cell">
+
+<div class="input_area">
+
+<div class="highlight hl-ipython3">
+
+    db.generate_create_table('Shipper2', [{'Id': 1, 'CompanyName': 'Speedy Express', 'Phone': '(503) 555-9831'},
+     {'Id': 2, 'CompanyName': 'United Package', 'Phone': '(503) 555-3199'},
+     {'Id': 3, 'CompanyName': 'Federal Shipping', 'Phone': '(503) 555-9931'}])
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="output_wrapper">
+
+<div class="output">
+
+<div class="output_area">
+
+<div class="prompt output_prompt">
+
+Out\[11\]:
+
+</div>
+
+<div class="output_text output_subarea output_execute_result">
+
+    'CREATE TABLE "Shipper2" ("Id" TEXT, "CompanyName" TEXT, "Phone" TEXT)'
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+
+In \[12\]:
+
+</div>
+
+<div class="inner_cell">
+
+<div class="input_area">
+
+<div class="highlight hl-ipython3">
+
+    db.con.execute('CREATE TABLE "Shipper2" ("Id" TEXT, "CompanyName" TEXT, "Phone" TEXT)')
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="output_wrapper">
+
+<div class="output">
+
+<div class="output_area">
+
+<div class="prompt output_prompt">
+
+Out\[12\]:
+
+</div>
+
+<div class="output_text output_subarea output_execute_result">
+
+    <sqlite3.Cursor at 0x1053a4340>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+
+In \[13\]:
+
+</div>
+
+<div class="inner_cell">
+
+<div class="input_area">
+
+<div class="highlight hl-ipython3">
+
+    db.insert('Shipper2', [{'Id': 1, 'CompanyName': 'Speedy Express', 'Phone': '(503) 555-9831'},
+     {'Id': 2, 'CompanyName': 'United Package', 'Phone': '(503) 555-3199'},
+     {'Id': 3, 'CompanyName': 'Federal Shipping', 'Phone': '(503) 555-9931'}])
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+
+In \[14\]:
+
+</div>
+
+<div class="inner_cell">
+
+<div class="input_area">
+
+<div class="highlight hl-ipython3">
+
+    db.select('SELECT * FROM Shipper2')
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="output_wrapper">
+
+<div class="output">
+
+<div class="output_area">
+
+<div class="prompt output_prompt">
+
+Out\[14\]:
+
+</div>
+
+<div class="output_text output_subarea output_execute_result">
+
+    [{'Id': '1', 'CompanyName': 'Speedy Express', 'Phone': '(503) 555-9831'},
+     {'Id': '2', 'CompanyName': 'United Package', 'Phone': '(503) 555-3199'},
+     {'Id': '3', 'CompanyName': 'Federal Shipping', 'Phone': '(503) 555-9931'}]
 
 </div>
 
