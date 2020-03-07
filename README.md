@@ -12,7 +12,7 @@
 
 <div class="text_cell_render border-box-sizing rendered_html">
 
-RemoteSqlite[¶](#RemoteSqlite){.anchor-link} {#RemoteSqlite}
+RemoteSqlite
 ============================================
 
 </div>
