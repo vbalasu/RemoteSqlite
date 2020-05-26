@@ -9,9 +9,11 @@ class RemoteSqlite:
         self.con.close()
     def pull(self, fspath, always_download=False):
         import fs
-        remotefs = fs.open_fs(fs.path.dirname(fspath))
-        tempfs = fs.open_fs('osfs:///tmp')
-        filename = fs.path.basename(fspath)
+        queryparams = self.get_pathurlparameters(fspath)
+        remotefs = fs.open_fs(fs.path.dirname(fspath)+queryparams)
+        tempdir = self.get_tempdirectory()
+        tempfs = fs.open_fs(tempdir,create=True)
+        filename = fs.path.basename(fspath).split('?')[0]
         if always_download:
             fs.copy.copy_file(remotefs, filename, tempfs, filename)
         else:
@@ -27,6 +29,27 @@ class RemoteSqlite:
         else:
             fs.copy.copy_file_if_newer(tempfs, filename, remotefs, filename)
         return fspath
+    def get_tempdirectory(self):
+        import os
+        from pathlib import Path
+        os_tempdir = os.environ.get('TEMP')
+        if os_tempdir:
+            tempdir = (Path(os.environ.get('TEMP')) / "RemoteSqlite").as_posix()
+        else:
+            tempdir = '/tmp/RemoteSqlite/'
+        tempdir_fspath = 'osfs://{temp_dir}'.format(temp_dir=tempdir)
+        return tempdir_fspath            
+    def get_pathurlparameters(self, fspath):
+        from urllib.parse import parse_qs, urlparse
+        querystring = parse_qs(urlparse(fspath).query)
+        queryparams = ''
+        if querystring:
+            for key in querystring:
+                if queryparams:
+                    queryparams+= "&{querykey}={queryvalue}".format(querykey=key, queryvalue=querystring[key][0])
+                else:
+                    queryparams+= "?{querykey}={queryvalue}".format(querykey=key, queryvalue=querystring[key][0])
+        return queryparams
     def get_count(self, tbl_name):
         return self.select(f"""SELECT COUNT(*) FROM `{tbl_name}`""")[0]['COUNT(*)']
     def get_counts(self):
