@@ -21,9 +21,11 @@ class RemoteSqlite:
         return tempfs.getsyspath(filename)
     def push(self, fspath, always_upload=False):
         import fs
-        remotefs = fs.open_fs(fs.path.dirname(fspath))
-        tempfs = fs.open_fs('osfs:///tmp')
-        filename = fs.path.basename(fspath)
+        queryparams = self.get_pathurlparameters(fspath)
+        remotefs = fs.open_fs(fs.path.dirname(fspath)+queryparams)
+        tempdir = self.get_tempdirectory()
+        tempfs = fs.open_fs(tempdir,create=True)
+        filename = fs.path.basename(fspath).split('?')[0]
         if always_upload:
             fs.copy.copy_file(tempfs, filename, remotefs, filename)
         else:
